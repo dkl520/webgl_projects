@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Model Control Interface</title>
+    <style>
+    </style>
+    <link rel="stylesheet" href="./CG_F24_Program2_KailongDuan.css">
+</head>
+
+<body>
+    <div id="webgl">
+        <canvas id="gl-canvas" width="1000" height="800">
+            Please use a browser that supports "canvas"
+        </canvas>
+    </div>
+    <div id="controls">
+        <div class="control-group">
+            <h3>Model Control</h3>
+            <h4 for="colorPicker">Color:</h4>
+            <input type="color" id="colorPicker" name="color" value="#ffea00" oninput="colorChange(event)">
+            <h4 for="colorPicker">Shiness:</h4>
+            <input type="range" id="colorintensity" min="0" step="0.1" max="20" value="20"
+                oninput="colorIntensityChange(event)">
+            <h4>Rotation</h4>
+            <label>RotationX</label>
+            <input type="range" min="0" id="rx" max="360" value="0" oninput="rx(event)" />
+            <label>RotationY</label>
+            <input type="range" min="0" id="ry" max="360" value="0" oninput="ry(event)" />
+            <label>RotationZ</label>
+            <input type="range" min="0" id="rz" max="360" value="0" oninput="rz(event)" />
+            <h4>Translation</h4>
+            <label>translationX</label>
+            <input type="range" id="tx" min="0" max="30" step="0.1" value="0" oninput="tx(event)" />
+            <label>translationY</label>
+            <input type="range" id="ty" min="0" max="30" step="0.1" value="0" oninput="ty(event)" />
+            <label>translationZ</label>
+            <input type="range" id="tz" min="0" max="30" step="0.1" value="0" oninput="tz(event)" />
+            <h4>Scale</h4>
+            <input type="range" id="scale" min="-1" max="1" step="0.1" value="0" oninput="scaleMatrix(event)" />
+        </div>
+        <div class="control-group">
+            <h3>Projection</h3>
+            <select onchange="projectionChange(event)">
+                <option value="orthographic">Orthographic</option>
+                <option value="perspective" selected>Perspective</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <h3>LightLocation</h3>
+            <label>X-axis</label><input id="lx" type="range" step="1.0" min="-100.0" max="100.0" value="0.0"
+                oninput="lightChange(event)" />
+            <label>Y-axis</label><input id="ly" type="range" step="1.0" min="-100.0" max="100.0" value="0.5"
+                oninput="lightChange(event)" />
+            <label>Z-axis</label><input id="lz" type="range" step="1.0" min="-100.0" max="100.0" value="0.7"
+                oninput="lightChange(event)" />
+        </div>
+        <div class="control-group">
+            <h3> Model Camera Control</h3>
+            <h4>Eye</h4>
+            <label>Eye-X</label><input id="ex" type="range" min="-100" max="100" value="-10"
+                oninput="cameraChange(event,'eye')" />
+            <label>Eye-Y</label><input id="ey" type="range" min="-100" max="100" value="10"
+                oninput="cameraChange(event,'eye')" />
+            <label>Eye-Z</label><input id="ez" type="range" min="-100" max="100" value="30"
+                oninput="cameraChange(event,'eye')" />
+            <h4>At </h4>
+            <label>At-X</label><input id="ax" type="range" min="-100" max="100" value="0"
+                oninput="cameraChange(event,'at')" />
+            <label>At-Y</label><input id="ay" type="range" min="-100" max="100" value="0"
+                oninput="cameraChange(event,'at')" />
+            <label>At-Z</label><input id="az" type="range" min="-100" max="100" value="0"
+                oninput="cameraChange(event,'at')" />
+            <h4>Up </h4>
+            <label>up-X</label><input id="ux" type="range" min="-100" max="100" value="0"
+                oninput="cameraChange(event,'up')" />
+            <label>up-Y</label><input id="uy" type="range" min="-100" max="100" value="1"
+                oninput="cameraChange(event,'up')" />
+            <label>up-Z</label><input id="uz" type="range" min="-100" max="100" value="0"
+                oninput="cameraChange(event,'up')" />
+        </div>
+        <div class="control-group">
+            <h3>model from .OBJ</h3>
+            <select onchange="modelChange(event)">
+                <option value="original"> original</option>
+                <option value="airboat">airboat</option>
+                <option value="cow">cow</option>
+                <option value="cube">cube</option>
+                <option value="icosahedron">icosahedron</option>
+                <option value="octahedron">octahedron</option>
+                <option value="shuttle">shuttle</option>
+                <option value="teapot_0">teapot</option>
+                <option value="teddybear">teddybear</option>
+                <option value="tetrahedron">tetrahedron</option>
+                <option value="violincase">violincase</option>
+            </select>
+        </div>
+
+    </div>
+    <div id="bottons">
+        <div class="button-group">
+            <button onclick="keydown({keyCode:40})">Down</button>
+            <button onclick="keydown({keyCode:38})">UP</button>
+            <button onclick="keydown({keyCode:37})">Left</button>
+            <button onclick="keydown({keyCode:39})">Right</button>
+            <button onclick="keydown({keyCode:89})">Yclick</button>
+            <button onclick="keydown({keyCode:72})">Hclik</button>
+            <button onclick="keydown({keyCode:90})">zClick</button>
+            <button onclick="keydown({keyCode:88})">xClick</button>
+            <button onclick="keydown({keyCode:86})">Vclik</button>
+            <button onclick="keydown({keyCode:67})">Cclick</button>
+            <button onclick="keydown({keyCode:75})">kClick</button>
+            <button onclick="keydown({keyCode:74})">Jclick</button>
+
+
+        </div>
+    </div>
+
+
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        #version 300 es
+        in vec4 a_Position;
+        in float staticBol;
+        in vec4 a_Normal;
+        uniform mat4 cameraMatrix;
+        uniform mat4 projectionMatrix;
+        uniform mat4 modelMatrix;
+        uniform mat4 u_NormalMatrix;
+        uniform vec4 lightLocation;
+       
+        out vec4 v_Color;
+        out vec3 N, L, E;
+        uniform vec4 uAmbientProduct;
+        uniform vec4 uDiffuseProduct;
+        uniform vec4 uSpecularProduct;
+        uniform float uShininess;
+        float heightField(float x, float z) {
+        float y = sin(x * 0.5) * cos(z * 0.5) * 2.0;
+        y += sin(x * 0.1) * sin(z * 0.1) * 5.0;
+        return y;
+        }
+        void main() {
+        if (staticBol == 1.0) {
+        float height = heightField(a_Position.x, a_Position.z);
+        vec3 pos = vec3(a_Position.x, height - 12.0, a_Position.z);
+        vec3 color = mix(vec3(0.2, 0.5, 0.1), vec3(0.8, 0.8, 0.8), (height + 5.0) / 10.0);
+        gl_Position = projectionMatrix * cameraMatrix * vec4(pos, 1.0);
+        v_Color = vec4(color, 1.0);
+
+        } else {
+        vec3 pos = (modelMatrix * a_Position).xyz;
+        gl_Position  = projectionMatrix * cameraMatrix * modelMatrix  * a_Position;
+        N = normalize((u_NormalMatrix * a_Normal).xyz); 
+       
+        E = -normalize(pos);
+        if (lightLocation.z == 0.0) {
+        L = normalize(lightLocation.xyz);
+        } else {
+        L = normalize(lightLocation.xyz - pos);
+        }
+        vec3 H = normalize(L + E);
+        vec4 ambient = uAmbientProduct;
+        float Kd = max(dot(L, N), 0.0);
+        vec4 diffuse = Kd * uDiffuseProduct;
+        float Ks = pow(max(dot(N, H), 0.0), uShininess);
+        vec4 specular = Ks * uSpecularProduct;
+        if (dot(L, N) < 0.0) {
+        specular = vec4(0.0, 0.0, 0.0, 1.0);
+        }
+        v_Color = ambient + diffuse + specular;
+        }
+
+        }
+        </script>
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        #version 300 es
+        precision mediump float;
+        in vec4 v_Color;
+        out vec4 fragColor;
+        void main() {
+            fragColor = v_Color;
+        }
+    </script>
+    <script src="./MVnew.js"></script>
+    <script src="./initShaders.js"></script>
+    <script src="./CG_F24_Program2_KailongDuan_util.js"></script>
+    <script src="./CG_F24_Program2_KailongDuan_buffer.js"></script>
+    <script src="./CG_F24_Program2_KailongDuan_loader.js"></script>
+    <script src="./CG_F24_Program2_KailongDuan_brush.js"></script>
+    <script src="./CG_F24_Program2_KailongDuan.js"></script>
+    <script src="./CG_F24_Program2_KailongDuan_controller.js"></script>
+</body>
+
+</html>
