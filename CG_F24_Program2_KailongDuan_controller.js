@@ -7,6 +7,8 @@ class Controller {
         this.previousTy = 0;
         this.previousTz = 0;
         this.previousScaleNum = 0;
+        this.timer = null;
+        this.interval = null;
         this.brush = brush;
         this.loader = brush.loader;
         this.transformMatrix = brush.loader.transformMatrix;
@@ -150,6 +152,28 @@ class Controller {
         this.previousTz = 0;
         this.previousScaleNum = 0;
     }
+    startHolding = (keyCode, e) => {
+        e.preventDefault();
+        keydown(keyCode);
+        const _this = this;
+        this.timer = setTimeout(() => {
+            this.interval = setInterval(() => {
+                _this.keydown(keyCode);
+            }, 10);
+        }, 200);
+
+    }
+    stopHolding = () => {
+        if (this.timer) {
+            clearTimeout(this.timer);
+            timer = null;
+        }
+        if (this.interval) {
+            clearInterval(this.interval);
+            interval = null;
+        }
+    }
+
     modelChange = (e) => {
         this.resetTransform();
         this.loader.resetLoader();

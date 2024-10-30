@@ -99,22 +99,32 @@
         </div>
 
     </div>
-    <div id="bottons">
+    <div id="buttons">
         <div class="button-group">
-            <button onclick="keydown({keyCode:40})">Down</button>
-            <button onclick="keydown({keyCode:38})">UP</button>
-            <button onclick="keydown({keyCode:37})">Left</button>
-            <button onclick="keydown({keyCode:39})">Right</button>
-            <button onclick="keydown({keyCode:89})">Yclick</button>
-            <button onclick="keydown({keyCode:72})">Hclik</button>
-            <button onclick="keydown({keyCode:90})">zClick</button>
-            <button onclick="keydown({keyCode:88})">xClick</button>
-            <button onclick="keydown({keyCode:86})">Vclik</button>
-            <button onclick="keydown({keyCode:67})">Cclick</button>
-            <button onclick="keydown({keyCode:75})">kClick</button>
-            <button onclick="keydown({keyCode:74})">Jclick</button>
-
-
+            <button onmousedown="startHolding({keyCode:40}, event)" onmouseleave="stopHolding()"
+                onmouseup="stopHolding()">Down</button>
+            <button onmousedown="startHolding({keyCode:38}, event)" onmouseleave="stopHolding()"
+                onmouseup="stopHolding()">UP</button>
+            <button onmousedown="startHolding({keyCode:37}, event)" onmouseleave="stopHolding()"
+                onmouseup="stopHolding()">Left</button>
+            <button onmousedown="startHolding({keyCode:39}, event)" onmouseleave="stopHolding()"
+                onmouseup="stopHolding()">Right</button>
+            <button onmousedown="startHolding({keyCode:89}, event)" onmouseleave="stopHolding()"
+                onmouseup="stopHolding()">Yclick</button>
+            <button onmousedown="startHolding({keyCode:72}, event)" onmouseleave="stopHolding()"
+                onmouseup="stopHolding()">Hclik</button>
+            <button onmousedown="startHolding({keyCode:90}, event)" onmouseleave="stopHolding()"
+                onmouseup="stopHolding()">zClick</button>
+            <button onmousedown="startHolding({keyCode:88}, event)" onmouseleave="stopHolding()"
+                onmouseup="stopHolding()">xClick</button>
+            <button onmousedown="startHolding({keyCode:86}, event)" onmouseleave="stopHolding()"
+                onmouseup="stopHolding()">Vclik</button>
+            <button onmousedown="startHolding({keyCode:67}, event)" onmouseleave="stopHolding()"
+                onmouseup="stopHolding()">Cclick</button>
+            <button onmousedown="startHolding({keyCode:75}, event)" onmouseleave="stopHolding()"
+                onmouseup="stopHolding()">kClick</button>
+            <button onmousedown="startHolding({keyCode:74}, event)" onmouseleave="stopHolding()"
+                onmouseup="stopHolding()">Jclick</button>
         </div>
     </div>
 
