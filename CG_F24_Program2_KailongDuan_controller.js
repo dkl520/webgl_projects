@@ -196,8 +196,10 @@ class Controller {
         let buffer = this.brush.buffer;
         if (objName == "original") {
             targetModel = "original";
+            document.getElementById("buttons").style.display = "block";
         } else {
             let url = objList[objName];
+            document.getElementById("buttons").style.display = "block";
             targetModel = objName;
             targetUrl = url;
             if (!(objName in buffer.OBJ)) {
