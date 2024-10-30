@@ -199,7 +199,7 @@ class Controller {
             document.getElementById("buttons").style.display = "block";
         } else {
             let url = objList[objName];
-            document.getElementById("buttons").style.display = "block";
+            document.getElementById("buttons").style.display = "none";
             targetModel = objName;
             targetUrl = url;
             if (!(objName in buffer.OBJ)) {
